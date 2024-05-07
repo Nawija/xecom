@@ -8,7 +8,6 @@ import { ComponentProps, ReactNode } from "react";
 export function Nav({ children }: { children: ReactNode }) {
     return (
         <nav className="bg-primary text-primary-foreground flex lg:flex-col justify-center lg:justify-start lg:pt-4 px-4 pr-0 lg:min-h-screen">
-            <p className="font-bold text-2xl mb-12">LOGO</p>
             {children}
         </nav>
     );

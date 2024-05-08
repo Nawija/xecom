@@ -17,8 +17,13 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+    ActiveToggleDropdownItem,
+    DeleteDropdownItem,
+} from "./_components/ProductsActions";
 
 export default function AdminProductPage() {
     return (
@@ -70,12 +75,12 @@ async function ProductsTable() {
                             {product.isAvailableForPurchases ? (
                                 <>
                                     <span className="sr-only">Available</span>
-                                    <CheckCircle2 />
+                                    <CheckCircle2 color="green" />
                                 </>
                             ) : (
                                 <>
                                     <span className="sr-only">Unavailable</span>
-                                    <XCircle />
+                                    <XCircle color="red" />
                                 </>
                             )}
                         </TableCell>
@@ -93,7 +98,7 @@ async function ProductsTable() {
                                     <span className="sr-only">Actions</span>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
                                         <a
                                             download
                                             href={`/admin/products/${product.id}/download`}
@@ -101,6 +106,24 @@ async function ProductsTable() {
                                             Download
                                         </a>
                                     </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link
+                                            href={`/admin/products/${product.id}/edit`}
+                                        >
+                                            Edit
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <ActiveToggleDropdownItem
+                                        id={product.id}
+                                        isAvailableForPurchase={
+                                            product.isAvailableForPurchases
+                                        }
+                                    />
+                                    <DropdownMenuSeparator />
+                                    <DeleteDropdownItem
+                                        id={product.id}
+                                        disabled={product._count.orders > 0}
+                                    />
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </TableCell>
